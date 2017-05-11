@@ -28,7 +28,7 @@ public class ListaNodo extends Lista {
 			primero = nuevo;
 			tamanio++;
 		} else {
-			//if (!existe(o)) {
+			if (!existe(o)) {
 				Nodo n = primero;
 				while (n.getSig() != null) {
 					n = n.getSig();
@@ -37,8 +37,7 @@ public class ListaNodo extends Lista {
 				n.setSig(nuevo);
 				tamanio++;
 			}
-		//}
-
+		}
 	}
 
 	public boolean existe(Object o) {
@@ -58,7 +57,7 @@ public class ListaNodo extends Lista {
 		int cont = 0;
 		if (pos >= 0 && pos < tamanio()) {
 			while (aux != null && cont < pos) {
-				aux.getSig();
+				aux=aux.getSig();
 				cont++;
 			}
 			return aux.getValor();
@@ -67,7 +66,7 @@ public class ListaNodo extends Lista {
 	}
 
 	public void imprimir() {
-		Nodo aux = primero.getSig();
+		Nodo aux = primero;
 		while (aux != null) {
 			System.out.println(aux.getValor() + " ");
 			aux = aux.getSig();
@@ -75,4 +74,15 @@ public class ListaNodo extends Lista {
 		
 	}
 
+	
+	public static void main(String[] args) {
+		ListaNodo x=new ListaNodo();
+		x.agregar("a");
+		x.agregar("b");
+		x.agregar("b");
+		x.agregar("c");
+		x.agregar("d");
+	x.imprimir();
+	
+	}
 }

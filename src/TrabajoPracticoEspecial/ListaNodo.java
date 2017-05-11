@@ -3,14 +3,14 @@ package TrabajoPracticoEspecial;
 public class ListaNodo extends Lista {
 
 	Nodo primero;
-	int cantidad = 0;
+	int tamanio = 0;
 
 	public ListaNodo() {
 		primero = null;
 	}
 
 	public int tamanio() {
-		return cantidad;
+		return tamanio;
 	}
 
 	public Nodo getPrimero() {
@@ -18,7 +18,7 @@ public class ListaNodo extends Lista {
 	}
 
 	public boolean isEmpty() {
-		return cantidad == 0;
+		return primero == null;
 	}
 
 	public void agregar(Object o) { // agregar al final
@@ -26,18 +26,18 @@ public class ListaNodo extends Lista {
 			Nodo nuevo = new Nodo(o, null);
 			nuevo.setSig(primero);
 			primero = nuevo;
-			cantidad++;
+			tamanio++;
 		} else {
-			if (!existe(o)) {
+			//if (!existe(o)) {
 				Nodo n = primero;
 				while (n.getSig() != null) {
 					n = n.getSig();
 				}
 				Nodo nuevo = new Nodo(o, null);
 				n.setSig(nuevo);
-				cantidad++;
+				tamanio++;
 			}
-		}
+		//}
 
 	}
 
@@ -56,7 +56,7 @@ public class ListaNodo extends Lista {
 	public Object getElement(int pos) {
 		Nodo aux = primero;
 		int cont = 0;
-		if (pos >= 0) {
+		if (pos >= 0 && pos < tamanio()) {
 			while (aux != null && cont < pos) {
 				aux.getSig();
 				cont++;

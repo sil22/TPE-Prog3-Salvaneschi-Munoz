@@ -36,17 +36,9 @@ public class Usuario {
 		return tastes;
 	}
 	
-//	public void getGusto(){
-//		gustos.imprimir();
-//	}
-//	public void imprimirGustos() {
-//		for (int i = 0; i < gustos.tamanio(); i++) {
-//			System.out.println(gustos.getElement(i).toString());
-//		}
-//	}
-	
-	public boolean equals(Usuario d) {
-		return this.getDni()==d.getDni();
+	public boolean equals(Object o) {
+		Usuario d = (Usuario)o;
+		return this.getDni().equals(d.getDni());
 	}
 
 	public String getDni() {
@@ -56,26 +48,5 @@ public class Usuario {
 	public Lista getGustos() {
 		return gustos;
 	}
-	
-	
-
-	
-	public static void main(String[] args) {
-		
-		Lista pepa=new ListaNodo();
-		pepa.agregar("peperina0");
-		pepa.agregar("peperina1");
-		pepa.agregar("peperina2");
-		pepa.agregar("peperina3");
-		
-		
-		Usuario user=new Usuario("129419",pepa);
-		System.out.println(user.toString());
-		
-		
-	}
-
-
-
 	
 }

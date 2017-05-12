@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class ControlarUsuario {
 	private static Lista listaUsuarios;
 	
-	public void altaConListaArreglo(String path) {
+	public void altaConListaArreglo(String path) {//LISTA ARREGLOOOO    ALTA
     	String csvFile = path;
         String line = "";
         String cvsSplitBy = ";";
@@ -40,40 +40,40 @@ public class ControlarUsuario {
                 
             	tiempoTotal = fin - inicio;
             	resultado[1] = Long.toString(tiempoTotal);
+            	//System.out.println(resultado[1]);
             	listaUsuariosSalida.agregar(resultado);
             } 
+           // listaUsuarios.imprimir();
+            writeResultList(listaUsuariosSalida,"/Users/zurdo/Downloads/datasets_tpe/datasets//salidaAltaUsuarios.csv");
+          
         } catch (IOException e) {
             e.printStackTrace();
         }
 
 	}
 	
-	public void salidaAltaUsuarios() { //tendria que recibir la listaUdsuarios de la clase, recorrerla y guardar el dni y el timepo de ejec en cada linea
+	public void writeResultList(Lista listaUsuariosSalida, String path ) { //tendria que recibir la listaUdsuarios de la clase, recorrerla y guardar el dni y el timepo de ejec en cada linea
 		BufferedWriter bw = null;
 		try {
-			File file = new File("/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets//salidaAltaUsuarios.csv");
+			File file = new File(path);
 			if (!file.exists()) {
 				file.createNewFile();
 			}
 
 			FileWriter fw = new FileWriter(file);
 			bw = new BufferedWriter(fw);
-
-			// Escribo la primer linea del archivo
-			String contenidoLinea1 = "Usuario1;Tiempo1";
-			bw.write(contenidoLinea1);
-			bw.newLine();
-
-			// Escribo la segunda linea del archivo
-			String contenidoLinea2 = "Usuario2;Tiempo2";
-			bw.write(contenidoLinea2);
-			bw.newLine();
-			
-			/*
-			 *
-			 * ... 
-			 * 
-			*/
+			String[] resultadoRow;
+			for (int i = 0; i < listaUsuariosSalida.tamanio(); i++){
+				
+				resultadoRow = (String[])listaUsuariosSalida.getElement(i);
+				String toWrite = "";
+				for (int j = 0; j < resultadoRow.length -1; j++) {
+					toWrite += resultadoRow[j] + ";";
+				}
+				toWrite += resultadoRow[resultadoRow.length-1];
+				bw.write(toWrite);
+				bw.newLine();				
+			}
 
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
@@ -93,114 +93,127 @@ public class ControlarUsuario {
         String line = "";
         String cvsSplitBy = ";";
         long inicio, fin, tiempoTotal;
-        ArrayList<IdBuscado> resultado = new ArrayList<IdBuscado>();
-		
+        ListaArreglo salidaBusqueda = new ListaArreglo();
+        Usuario userAux = null;
       
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
 
             while ((line = br.readLine()) != null) {
-            	               
+            	
+            	String[] resultado = new String[3];
+                   	               
                 String[] items = line.split(cvsSplitBy);
                 inicio = System.currentTimeMillis();
-                boolean existe = listaUsuarios.existe(items[0]);
                 
+                resultado[0]=items[0];
+                
+                userAux = new Usuario(items[0], null);
+                boolean existe = listaUsuarios.existe(userAux);
+                               
                 if (existe){
+                	resultado[2]="ENCONTRADO";
                 }
-               
+                else
+                	resultado[2]="No Encontrado";
+                              
+                               
                 fin = System.currentTimeMillis();
-        		
         		tiempoTotal = fin - inicio;
-        		System.out.println(" ");
-        		System.out.println("La tarea llevo "+ tiempoTotal +" milisegundos");
-             
+        		
+        		resultado[1]=Long.toString(tiempoTotal);
+        		salidaBusqueda.agregar(resultado);        		    
             }
-            listaUsuarios.imprimir();
             
-          
-        
+            writeResultList(salidaBusqueda,"/Users/zurdo/Downloads/datasets_tpe/datasets//salidaBusquedaUsuarios.csv");            
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-    }
-    
-    
+    }   
     
 	
-	public void altaConListaNodo(String path) {
+	public void altaConListaNodo(String path) {//LISTA NODO                    ALTAAA
     	String csvFile = path;
         String line = "";
         String cvsSplitBy = ";";
         listaUsuarios = new ListaNodo();
         long inicio, fin, tiempoTotal;
+        ListaNodo listaUsuariosSalida=new ListaNodo();
 		
         inicio = System.currentTimeMillis();
         
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
 
-            while ((line = br.readLine()) != null) {
-            		
+        	while ((line = br.readLine()) != null) {
+            	String[] resultado = new String[2];
+            	               
                 String[] items = line.split(cvsSplitBy);
-                ListaNodo aux=new ListaNodo();
+                resultado[0] = items[0];
+                
+                inicio = System.currentTimeMillis();
+                ListaArreglo aux=new ListaArreglo();
                 Usuario user = new Usuario(items[0], aux);
                 
                 for (int i = 1; i < items.length; i++) {
                 	user.agregarGusto(items[i]);
-                	
                 }
                 listaUsuarios.agregar(user);
-            }
-            listaUsuarios.imprimir();
-            fin = System.currentTimeMillis();
-    		
-    		tiempoTotal = fin - inicio;
-    		System.out.println(" ");
-    		System.out.println("La tarea llevo "+ tiempoTotal +" milisegundos");
-
+                fin = System.currentTimeMillis();
+                
+            	tiempoTotal = fin - inicio;
+            	resultado[1] = Long.toString(tiempoTotal);
+            	//System.out.println(resultado[1]);//Imprimo tiempo
+            	listaUsuariosSalida.agregar(resultado);
+            }   //listaUsuarios.imprimir();
+            writeResultList(listaUsuariosSalida,"/Users/zurdo/Downloads/datasets_tpe/datasets//salidaAltaUsuarios.csv");
+          
         
         } catch (IOException e) {
             e.printStackTrace();
         }
 	}
 	
-	public void altaConListaNodoAlPpio(String path) {
+	public void altaConListaNodoAlPpio(String path) {//LISTA NODO PRINCIPIO    ALTAAAA
     	
-    	String csvFile = path;
+		String csvFile = path;
         String line = "";
         String cvsSplitBy = ";";
         listaUsuarios = new ListaNodoInsertarAlPpio();
         long inicio, fin, tiempoTotal;
+        ListaNodoInsertarAlPpio listaUsuariosSalida=new ListaNodoInsertarAlPpio();
 		
         inicio = System.currentTimeMillis();
-
         
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
 
-            while ((line = br.readLine()) != null) {
-            		
+        	while ((line = br.readLine()) != null) {
+            	String[] resultado = new String[2];
+            	               
                 String[] items = line.split(cvsSplitBy);
-                ListaNodo aux=new ListaNodo();
+                resultado[0] = items[0];
+                
+                inicio = System.currentTimeMillis();
+                ListaNodoInsertarAlPpio aux=new ListaNodoInsertarAlPpio();
                 Usuario user = new Usuario(items[0], aux);
                 
                 for (int i = 1; i < items.length; i++) {
                 	user.agregarGusto(items[i]);
-                	
                 }
                 listaUsuarios.agregar(user);
-            }
-            listaUsuarios.imprimir();
-            fin = System.currentTimeMillis();
-    		
-    		tiempoTotal = fin - inicio;
-    		System.out.println(" ");
-    		System.out.println("La tarea llevo "+ tiempoTotal +" milisegundos");
-
+                fin = System.currentTimeMillis();
+                
+            	tiempoTotal = fin - inicio;
+            	resultado[1] = Long.toString(tiempoTotal);
+            	System.out.println(resultado[1]);//Imprimo tiempo
+            	listaUsuariosSalida.agregar(resultado);
+            }   //listaUsuarios.imprimir();
+            writeResultList(listaUsuariosSalida,"/Users/zurdo/Downloads/datasets_tpe/datasets//salidaAltaUsuarios.csv");
+          
         
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        
 	}
 	
 
@@ -208,13 +221,15 @@ public class ControlarUsuario {
 	public static void main(String[] args) {
 		ControlarUsuario control = new ControlarUsuario();
 		String csvFile = "/Users/munoz/Documents/workspace/Programacion3/src/ProgramacionIII/TPE/dataset.csv";
-		String csvFileInsert = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_insert_10000.csv";
-		String csvBusqueda = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_busqueda_10000.csv";
+		String csvFileInsert = "/Users/zurdo/Downloads/datasets_tpe/datasets/dataset_1000000.csv";
+		String csvBusqueda = "/Users/zurdo/Downloads/datasets_tpe/datasets/dataset_busqueda_10000.csv";//de aca salen los que vamos a buscar
 		
-		control.altaConListaArreglo(csvFileInsert);
-	//	control.busqueda(csvBusqueda);
-	//	control.cargarConListaNodo(csvFile);
-	//	control.cargarConListaNodoAlPpio(csvFile);
+	//	control.altaConListaArreglo(csvFileInsert);
+		control.altaConListaNodo(csvFileInsert);
+	//	control.altaConListaNodoAlPpio(csvFileInsert);
+
+		control.busqueda(csvBusqueda);
+		System.out.println("Termine");
 	}
 
 }

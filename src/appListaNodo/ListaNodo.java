@@ -1,8 +1,11 @@
-package TrabajoPracticoEspecial;
+package appListaNodo;
+
+import ClasesNecesarias.Lista;
+import ClasesNecesarias.Nodo;
 
 public class ListaNodo extends Lista {
 
-	Nodo primero;
+	protected Nodo primero;
 	int tamanio = 0;
 
 	public ListaNodo() {

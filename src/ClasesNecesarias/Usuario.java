@@ -1,4 +1,4 @@
-package TrabajoPracticoEspecial;
+package ClasesNecesarias;
 
 
 public class Usuario {

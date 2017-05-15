@@ -1,4 +1,4 @@
-package TrabajoPracticoEspecial;
+package ClasesNecesarias;
 
 public abstract class Lista {
 	int size = 0;

@@ -1,4 +1,4 @@
-package TrabajoPracticoEspecial;
+package ClasesNecesarias;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -7,10 +7,104 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import appArreglo.ListaArreglo;
+import appListaNodo.ListaNodo;
+import appListaNodoInsertaAlPpio.ListaNodoInsertarAlPpio;
+
 
 public class ControlarUsuario {
 	private static Lista listaUsuarios;
 	
+	public void precargaConListaArreglo(String path) {
+		String csvFile = path;
+        String line = "";
+        String cvsSplitBy = ";";
+        listaUsuarios = new ListaArreglo();		
+    
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+        	while ((line = br.readLine()) != null) {
+            	
+            	String[] resultado = new String[2];
+            	               
+                String[] items = line.split(cvsSplitBy); 
+                resultado[0] = items[0];   // guardo el dni
+                
+                ListaArreglo aux=new ListaArreglo();  //creo la lista que le voy a pasar al usuario
+                Usuario user = new Usuario(items[0], aux);
+                
+                for (int i = 1; i < items.length; i++) {  //recorro el arr items que tiene los gustos a partir de la pos 1 y los agrego como gustos del usuario nuevo 
+                	user.agregarGusto(items[i]);   
+                }
+                
+                listaUsuarios.agregar(user); 
+        	} 
+          
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+	}
+	
+	public void precargaConListaNodo(String path) {
+		String csvFile = path;
+        String line = "";
+        String cvsSplitBy = ";";
+        listaUsuarios = new ListaArreglo();		
+    
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+        	while ((line = br.readLine()) != null) {
+            	
+            	String[] resultado = new String[2];
+            	               
+                String[] items = line.split(cvsSplitBy); 
+                resultado[0] = items[0];   // guardo el dni
+                
+                ListaArreglo aux=new ListaArreglo();  //creo la lista que le voy a pasar al usuario
+                Usuario user = new Usuario(items[0], aux);
+                
+                for (int i = 1; i < items.length; i++) {  //recorro el arr items que tiene los gustos a partir de la pos 1 y los agrego como gustos del usuario nuevo 
+                	user.agregarGusto(items[i]);   
+                }
+                
+                listaUsuarios.agregar(user); 
+        	} 
+          
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+	}
+	
+	public void precargaConListaNodoInsertaAlPpio(String path) {
+		String csvFile = path;
+        String line = "";
+        String cvsSplitBy = ";";
+        listaUsuarios = new ListaArreglo();		
+    
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+        	while ((line = br.readLine()) != null) {
+            	
+            	String[] resultado = new String[2];
+            	               
+                String[] items = line.split(cvsSplitBy); 
+                resultado[0] = items[0];   // guardo el dni
+                
+                ListaArreglo aux=new ListaArreglo();  //creo la lista que le voy a pasar al usuario
+                Usuario user = new Usuario(items[0], aux);
+                
+                for (int i = 1; i < items.length; i++) {  //recorro el arr items que tiene los gustos a partir de la pos 1 y los agrego como gustos del usuario nuevo 
+                	user.agregarGusto(items[i]);   
+                }
+                
+                listaUsuarios.agregar(user); 
+        	} 
+          
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+	}
+ 	
 	public void altaConListaArreglo(String path) {
     	String csvFile = path;
         String line = "";
@@ -19,30 +113,35 @@ public class ControlarUsuario {
         long inicio, fin, tiempoTotal;
         Lista listaUsuariosSalida = new ListaArreglo();
 		
-        
+       int j=1;
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-
-            while ((line = br.readLine()) != null) {
+        	while ((line = br.readLine()) != null) {
+            	j++;
+            	if (j%1000==0)
+            		System.out.println(j);
+            	
             	String[] resultado = new String[2];
             	               
-                String[] items = line.split(cvsSplitBy);
+                String[] items = line.split(cvsSplitBy); 
                 resultado[0] = items[0];   // guardo el dni
                 
-                inicio = System.currentTimeMillis();
+                inicio = System.nanoTime();
                 ListaArreglo aux=new ListaArreglo();  //creo la lista que le voy a pasar al usuario
                 Usuario user = new Usuario(items[0], aux);
                 
                 for (int i = 1; i < items.length; i++) {  //recorro el arr items que tiene los gustos a partir de la pos 1 y los agrego como gustos del usuario nuevo 
                 	user.agregarGusto(items[i]);   
                 }
-                listaUsuarios.agregar(user);
-                fin = System.currentTimeMillis();
                 
+                listaUsuarios.agregar(user);
+                
+                fin = System.nanoTime();
             	tiempoTotal = fin - inicio;
-            	resultado[1] = Long.toString(tiempoTotal);  //guardo el tiempo de la operacion
-            	//System.out.println(resultado[1]);
+            	resultado[1] = Long.toString(tiempoTotal);  //guardo el tiempo de cada operacion
+            	
             	listaUsuariosSalida.agregar(resultado);  //agregao a la lista que voy a leer para escribir el archivo csv
-            } 
+
+        	} 
            // listaUsuarios.imprimir();
             escribirResultadoLista(listaUsuariosSalida,"/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/salidaAltaUsuarios.csv");
           
@@ -220,16 +319,19 @@ public class ControlarUsuario {
 	
 	public static void main(String[] args) {
 		ControlarUsuario control = new ControlarUsuario();
-		String csvFileInsertSil = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_3000000.csv";
-		String csvBusquedaSil = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_busqueda_10000.csv";
-		String csvFileInsert = "/Users/zurdo/Downloads/datasets_tpe/datasets/dataset_1000000.csv";
-		String csvBusqueda = "/Users/zurdo/Downloads/datasets_tpe/datasets/dataset_busqueda_10000.csv";//de aca salen los que vamos a buscar
-		
-	//	control.altaConListaArreglo(csvFileInsert);
-		control.altaConListaNodo(csvFileInsertSil);
-	//	control.altaConListaNodoAlPpio(csvFileInsert);
+		String csvFileInsert = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_insert_10000.csv";
+		String csvBusqueda = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_busqueda_10000.csv";
+		String csv5 = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_500000.csv";
+		String csv1 = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_1000000.csv";
+		String csv3 = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_3000000.csv";
 
-		control.busqueda(csvBusquedaSil);
+		control.altaConListaArreglo(csv5);
+		
+		
+	//	control.altaConListaNodo(csvFileInsert);
+	//	control.altaConListaNodoAlPpio(csvFileInsert);
+		
+		control.busqueda(csvBusqueda);
 		System.out.println("Termine");
 	}
 

@@ -1,3 +1,4 @@
 /bin
 .settings
 .metadata
+.DS_Store

@@ -1,11 +1,13 @@
-package TrabajoPracticoEspecial;
+package appArreglo;
+
+import ClasesNecesarias.Lista;
 
 public class ListaArreglo extends Lista{
 	Object arr [];
 	int cant;
 	
 	public ListaArreglo(){
-		arr= new Object [9999];
+		arr= new Object [100];
 		cant = 0;
 	}
 	
@@ -20,7 +22,7 @@ public class ListaArreglo extends Lista{
 	
 	public void imprimir() {
 		for (int i = 0; i < cant; i++) {
-			System.out.println(arr[i]+" ");
+			System.out.println(arr[i].toString()+" ");
 			
 		}
 	}

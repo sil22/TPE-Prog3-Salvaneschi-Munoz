@@ -1,4 +1,7 @@
-package TrabajoPracticoEspecial;
+package appListaNodoInsertaAlPpio;
+
+import ClasesNecesarias.Nodo;
+import appListaNodo.ListaNodo;
 
 public class  ListaNodoInsertarAlPpio extends ListaNodo {
 	

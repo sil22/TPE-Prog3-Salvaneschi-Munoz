@@ -13,7 +13,8 @@ public class ControlarUsuarioArreglo {
 	private static Lista listaUsuarios;
 	
 	public ControlarUsuarioArreglo() {
-		listaUsuarios = new ListaArreglo();
+		int a = 9999; 
+		listaUsuarios = new ListaArreglo(a);
 	}
 	
 	public void precarga(String path) {

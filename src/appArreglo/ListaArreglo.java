@@ -10,6 +10,10 @@ public class ListaArreglo extends Lista{
 		arr= new Object [100];
 		cant = 0;
 	}
+	public ListaArreglo(int a) {
+		arr = new Object[a];
+		cant = 0;
+	}
 	
 	@Override
 	public int tamanio(){

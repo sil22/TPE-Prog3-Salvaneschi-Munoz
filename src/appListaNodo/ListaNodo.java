@@ -6,7 +6,7 @@ import ClasesNecesarias.Nodo;
 public class ListaNodo extends Lista {
 
 	protected Nodo primero;
-	int tamanio = 0;
+	private int tamanio = 0;
 
 	public ListaNodo() {
 		primero = null;
@@ -31,7 +31,6 @@ public class ListaNodo extends Lista {
 			primero = nuevo;
 			tamanio++;
 		} else {
-			if (!existe(o)) {
 				Nodo n = primero;
 				while (n.getSig() != null) {
 					n = n.getSig();
@@ -39,7 +38,6 @@ public class ListaNodo extends Lista {
 				Nodo nuevo = new Nodo(o, null);
 				n.setSig(nuevo);
 				tamanio++;
-			}
 		}
 	}
 
@@ -78,14 +76,5 @@ public class ListaNodo extends Lista {
 	}
 
 	
-	public static void main(String[] args) {
-		ListaNodo x=new ListaNodo();
-		x.agregar("a");
-		x.agregar("b");
-		x.agregar("b");
-		x.agregar("c");
-		x.agregar("d");
-	x.imprimir();
-	
-	}
+
 }

@@ -1,15 +1,9 @@
 package appListaNodo;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 import ClasesNecesarias.*;
 import appArreglo.ListaArreglo;
-import appListaNodoInsertaAlPpio.ListaNodoInsertarAlPpio;
 
 
 public class ControlarUsuarioListaNodo {
@@ -23,17 +17,19 @@ public class ControlarUsuarioListaNodo {
 		String csvFile = path;
         String line = "";
         String cvsSplitBy = ";";
-   
+        
+        int j=1;
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
         	while ((line = br.readLine()) != null) {
-            	
-            	String[] resultado = new String[2];
-            	               
+        	 	j++;
+            	if (j%1000==0)
+            		System.out.println(j);
+            	Usuario user;
+               
                 String[] items = line.split(cvsSplitBy); 
-                resultado[0] = items[0];   // guardo el dni
                 
                 ListaNodo aux = new ListaNodo();  //creo la lista que le voy a pasar al usuario
-                Usuario user = new Usuario(items[0], aux);
+                user = new Usuario(items[0], aux);
                 
                 for (int i = 1; i < items.length; i++) {  //recorro el arr items que tiene los gustos a partir de la pos 1 y los agrego como gustos del usuario nuevo 
                 	user.agregarGusto(items[i]);   
@@ -52,15 +48,20 @@ public class ControlarUsuarioListaNodo {
     	String csvFile = path;
         String line = "";
         String cvsSplitBy = ";";
-        listaUsuarios = new ListaNodo();
-        long inicio, fin, tiempoTotal;
+        
+        long inicio, fin, tiempoTotal, tiempoEjecucionFin;
+        long tiempoEjecucionInicio= System.nanoTime();
+    
         ListaNodo listaUsuariosSalida=new ListaNodo();
 		
-        inicio = System.currentTimeMillis();
-        
+        int j= 1;
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
 
         	while ((line = br.readLine()) != null) {
+        	 	j++;
+            	if (j%1000==0)
+            		System.out.println(j);
+            	
             	String[] resultado = new String[2];
             	               
                 String[] items = line.split(cvsSplitBy);
@@ -81,8 +82,9 @@ public class ControlarUsuarioListaNodo {
 
             	listaUsuariosSalida.agregar(resultado);
             }   
+            tiempoEjecucionFin = System.nanoTime() - tiempoEjecucionInicio;
+
             escribirResultadoLista(listaUsuariosSalida,"/Users/munoz/Documents/workspace/TPE_Prog3_Salvaneschi_Munoz/src/CsvSalidas/salidaAltaUsuarios"+carga+".csv");
-          
         
         } catch (IOException e) {
             e.printStackTrace();
@@ -183,7 +185,7 @@ public class ControlarUsuarioListaNodo {
 		int c = 500000;
 		control.precarga(csv5);
 		control.alta(csvFileInsert, c);
-		control.busqueda(csvBusqueda, c);
+//		control.busqueda(csvBusqueda, c);
 		
 //		int u = 1000000;
 //		control.precarga(csv1);

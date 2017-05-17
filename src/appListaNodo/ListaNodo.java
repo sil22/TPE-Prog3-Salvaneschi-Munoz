@@ -6,7 +6,7 @@ import ClasesNecesarias.Nodo;
 public class ListaNodo extends Lista {
 
 	protected Nodo primero;
-	private int tamanio = 0;
+	protected int tamanio = 0;
 
 	public ListaNodo() {
 		primero = null;

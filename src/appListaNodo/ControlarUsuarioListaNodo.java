@@ -68,7 +68,7 @@ public class ControlarUsuarioListaNodo {
                 resultado[0] = items[0];
                 
                 inicio = System.nanoTime();
-                ListaArreglo aux=new ListaArreglo();
+                ListaNodo aux=new ListaNodo();
                 Usuario user = new Usuario(items[0], aux);
                 
                 for (int i = 1; i < items.length; i++) {
@@ -84,7 +84,7 @@ public class ControlarUsuarioListaNodo {
             }   
             tiempoEjecucionFin = System.nanoTime() - tiempoEjecucionInicio;
 
-            escribirResultadoLista(listaUsuariosSalida,"/Users/munoz/Documents/workspace/TPE_Prog3_Salvaneschi_Munoz/src/CsvSalidas/salidaAltaUsuarios"+carga+".csv");
+            escribirResultadoLista(listaUsuariosSalida,tiempoEjecucionFin,"/Users/munoz/Documents/workspace/TPE_Prog3_Salvaneschi_Munoz/src/CsvSalidas/salidaAltaUsuariosListadoNodo"+carga+".csv");
         
         } catch (IOException e) {
             e.printStackTrace();
@@ -92,7 +92,7 @@ public class ControlarUsuarioListaNodo {
 	}
 	
 	
-	public void escribirResultadoLista(Lista listaUsuariosSalida, String path ) { 
+	public void escribirResultadoLista(Lista listaUsuariosSalida,long tiempoEjecucionFin, String path ) { 
 		BufferedWriter bw = null;
 		try {
 			File file = new File(path);
@@ -114,6 +114,7 @@ public class ControlarUsuarioListaNodo {
 				bw.write(aEscribir);
 				bw.newLine();				
 			}
+			bw.write("Tiempo total general" + ";" + tiempoEjecucionFin);
 
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
@@ -132,7 +133,8 @@ public class ControlarUsuarioListaNodo {
     	String csvFile = path;
         String line = "";
         String cvsSplitBy = ";";
-        long inicio, fin, tiempoTotal;
+        long inicio, fin, tiempoTotal, tiempoEjecucionFin;
+        long tiempoEjecucionInicio= System.nanoTime();
         ListaArreglo salidaBusqueda = new ListaArreglo();
         Usuario userAux = null;
       
@@ -143,7 +145,7 @@ public class ControlarUsuarioListaNodo {
             	String[] resultado = new String[3];
                    	               
                 String[] items = line.split(cvsSplitBy);
-                inicio = System.currentTimeMillis();
+                inicio = System.nanoTime();
                 
                 resultado[0]=items[0];
                 
@@ -163,8 +165,8 @@ public class ControlarUsuarioListaNodo {
         		resultado[1]=Long.toString(tiempoTotal);
         		salidaBusqueda.agregar(resultado);        		    
             }
-            
-            escribirResultadoLista(salidaBusqueda,"/Users/munoz/Documents/workspace/TPE_Prog3_Salvaneschi_Munoz/src/CsvSalidas/salidaBusquedaUsuarios"+carga+".csv");
+            tiempoEjecucionFin = System.nanoTime() - tiempoEjecucionInicio;
+            escribirResultadoLista(salidaBusqueda,tiempoEjecucionFin,"/Users/munoz/Documents/workspace/TPE_Prog3_Salvaneschi_Munoz/src/CsvBusquedas/salidaBusquedaUsuariosListaNodo"+carga+".csv");
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -177,26 +179,26 @@ public class ControlarUsuarioListaNodo {
 		ControlarUsuarioListaNodo control = new ControlarUsuarioListaNodo();
 		String csvFileInsert = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_insert_10000.csv";
 		String csvBusqueda = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_busqueda_10000.csv";
-		String csv5 = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_500000.csv";
-		String csv1 = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_1000000.csv";
-		String csv3 = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_3000000.csv";
+		String csv5 = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_50000.csv";
+		String csv1 = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_100000.csv";
+		String csv3 = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_300000.csv";
 
 	
-		int c = 500000;
-		control.precarga(csv5);
-		control.alta(csvFileInsert, c);
+//		int c = 50000;
+//		control.precarga(csv5);
+//		control.alta(csvFileInsert, c);
 //		control.busqueda(csvBusqueda, c);
 		
-//		int u = 1000000;
+//		int u = 100000;
 //		control.precarga(csv1);
 //		control.alta(csvFileInsert, u);
 //		control.busqueda(csvBusqueda, u);
 
-//		int t = 3000000;
+//		int t = 300000;
 //		control.precarga(csv3);
 //		control.alta(csvFileInsert, t);
 //		control.busqueda(csvBusqueda, t);
-	
+
 		System.out.println("Termine");
 	}
 

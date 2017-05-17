@@ -21,10 +21,15 @@ public class ControlarUsuarioListaNodoAlPpio {
 		String csvFile = path;
         String line = "";
         String cvsSplitBy = ";";
+        
+        
+        int j=1;
     
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
         	while ((line = br.readLine()) != null) {
-            	
+            	j++;
+            	if(j%1000 == 0)
+            		System.out.println(j);
             	String[] resultado = new String[2];
             	               
                 String[] items = line.split(cvsSplitBy); 
@@ -52,13 +57,18 @@ public class ControlarUsuarioListaNodoAlPpio {
 		String csvFile = path;
         String line = "";
         String cvsSplitBy = ";";
-        long inicio, fin, tiempoTotal;
+        long inicio, fin, tiempoTotal,tiempoEjecucionFin;
+        long tiempoEjecucionInicio= System.nanoTime();
+        
         ListaNodoInsertarAlPpio listaUsuariosSalida=new ListaNodoInsertarAlPpio();
 		
-        
+        int j=1;
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
 
         	while ((line = br.readLine()) != null) {
+        		j++;
+            	if(j%1000 == 0)
+            		System.out.println(j);
             	String[] resultado = new String[2];
             	               
                 String[] items = line.split(cvsSplitBy);
@@ -80,8 +90,8 @@ public class ControlarUsuarioListaNodoAlPpio {
             	listaUsuariosSalida.agregar(resultado);
             
         	} 
-        	
-            escribirResultadoLista(listaUsuariosSalida,"/Users/munoz/Documents/workspace/TPE_Prog3_Salvaneschi_Munoz/src/CsvSalidas/salidaAltaUsuarios"+preCarga+".csv");
+        	tiempoEjecucionFin = System.nanoTime() - tiempoEjecucionInicio;
+            escribirResultadoLista(listaUsuariosSalida,tiempoEjecucionFin,"/Users/munoz/Documents/workspace/TPE_Prog3_Salvaneschi_Munoz/src/CsvSalidas/salidaAltaUserInsertPpio"+preCarga+".csv");
           
         
         } catch (IOException e) {
@@ -89,7 +99,7 @@ public class ControlarUsuarioListaNodoAlPpio {
         }
 	}
 	
-	public void escribirResultadoLista(Lista listaUsuariosSalida, String path ) { 
+	public void escribirResultadoLista(Lista listaUsuariosSalida, long tiempoEjecucionFin, String path ) { 
 		BufferedWriter bw = null;
 		try {
 			File file = new File(path);
@@ -99,7 +109,7 @@ public class ControlarUsuarioListaNodoAlPpio {
 
 			FileWriter fw = new FileWriter(file);
 			bw = new BufferedWriter(fw);
-			String[] resultadoLinea = new String[2];
+			String[] resultadoLinea;
 			
 			for (int i = 0; i < listaUsuariosSalida.tamanio(); i++){
 				
@@ -112,6 +122,8 @@ public class ControlarUsuarioListaNodoAlPpio {
 				bw.write(aEscribir);
 				bw.newLine();				
 			}
+			
+			bw.write("Tiempo total ejecucion" + ";" + tiempoEjecucionFin);
 
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
@@ -130,7 +142,8 @@ public class ControlarUsuarioListaNodoAlPpio {
     	String csvFile = path;
         String line = "";
         String cvsSplitBy = ";";
-        long inicio, fin, tiempoTotal;
+        long inicio, fin, tiempoTotal, tiempoTotalGeneralFin;
+        long tiempoTotalGeneralInicio = System.nanoTime();
         ListaNodoInsertarAlPpio salidaBusqueda = new ListaNodoInsertarAlPpio();
         Usuario userAux = null;
       
@@ -161,8 +174,8 @@ public class ControlarUsuarioListaNodoAlPpio {
         		resultado[1]=Long.toString(tiempoTotal);
         		salidaBusqueda.agregar(resultado);        		    
             }
-            
-            escribirResultadoLista(salidaBusqueda,"/Users/munoz/Documents/workspace/TPE_Prog3_Salvaneschi_Munoz/src/CsvSalidas/salidaBusquedaUsuarios"+preCarga+".csv");
+          	tiempoTotalGeneralFin = System.nanoTime() - tiempoTotalGeneralInicio;
+            escribirResultadoLista(salidaBusqueda, tiempoTotalGeneralFin,"/Users/munoz/Documents/workspace/TPE_Prog3_Salvaneschi_Munoz/src/CsvBusquedas/salidaBusqUsuariosInseertPpio"+preCarga+".csv");
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -175,24 +188,24 @@ public class ControlarUsuarioListaNodoAlPpio {
 		ControlarUsuarioListaNodoAlPpio control = new ControlarUsuarioListaNodoAlPpio();
 		String csvFileInsert = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_insert_10000.csv";
 		String csvBusqueda = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_busqueda_10000.csv";
-		String csv5 = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_500000.csv";
-		String csv1 = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_1000000.csv";
-		String csv3 = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_3000000.csv";
+		String csv5 = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_50000.csv";
+		String csv1 = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_100000.csv";
+		String csv3 = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_300000.csv";
 		
-		int c = 500000;
-		control.precarga(csv5);
-		control.alta(csvFileInsert, c);
-		control.busqueda(csvBusqueda, c);
+//		int c = 50000;
+//		control.precarga(csv5);
+//		control.alta(csvFileInsert, c);
+//		control.busqueda(csvBusqueda, c);
 		
-//		int u = 1000000;
+//		int u = 100000;
 //		control.precarga(csv1);
 //		control.alta(csvFileInsert, u);
 //		control.busqueda(csvBusqueda, u);
 
-//		int t = 3000000;
-//		control.precarga(csv3);
-//		control.alta(csvFileInsert, t);
-//		control.busqueda(csvBusqueda, t);
+		int t = 300000;
+		control.precarga(csv3);
+		control.alta(csvFileInsert, t);
+		control.busqueda(csvBusqueda, t);
 
 		System.out.println("Termine");
 	}

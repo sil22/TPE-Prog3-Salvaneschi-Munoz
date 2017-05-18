@@ -54,14 +54,14 @@ public class ControlarUsuarioListaNodo {
     
         ListaNodo listaUsuariosSalida=new ListaNodo();
 		
-        int j= 1;
+    //    int j= 1;
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
 
         	while ((line = br.readLine()) != null) {
-        	 	j++;
-            	if (j%1000==0)
-            		System.out.println(j);
-            	
+//        	 	j++;
+//            	if (j%1000==0)
+//            		System.out.println(j);
+      	
             	String[] resultado = new String[2];
             	               
                 String[] items = line.split(cvsSplitBy);
@@ -135,7 +135,7 @@ public class ControlarUsuarioListaNodo {
         String cvsSplitBy = ";";
         long inicio, fin, tiempoTotal, tiempoEjecucionFin;
         long tiempoEjecucionInicio= System.nanoTime();
-        ListaArreglo salidaBusqueda = new ListaArreglo();
+        ListaNodo salidaBusqueda = new ListaNodo();
         Usuario userAux = null;
       
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
@@ -159,7 +159,7 @@ public class ControlarUsuarioListaNodo {
                 	resultado[2]="No Encontrado";
                               
                                
-                fin = System.currentTimeMillis();
+                fin = System.nanoTime();
         		tiempoTotal = fin - inicio;
         		
         		resultado[1]=Long.toString(tiempoTotal);
@@ -184,7 +184,7 @@ public class ControlarUsuarioListaNodo {
 		String csv3 = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_300000.csv";
 
 	
-//		int c = 50000;
+//		int c = 500000;
 //		control.precarga(csv5);
 //		control.alta(csvFileInsert, c);
 //		control.busqueda(csvBusqueda, c);
@@ -194,10 +194,10 @@ public class ControlarUsuarioListaNodo {
 //		control.alta(csvFileInsert, u);
 //		control.busqueda(csvBusqueda, u);
 
-//		int t = 300000;
-//		control.precarga(csv3);
-//		control.alta(csvFileInsert, t);
-//		control.busqueda(csvBusqueda, t);
+		int t = 300000;
+		control.precarga(csv3);
+		control.alta(csvFileInsert, t);
+		control.busqueda(csvBusqueda, t);
 
 		System.out.println("Termine");
 	}

@@ -175,26 +175,26 @@ public class ControlarUsuarioArreglo {
 	
 	public static void main(String[] args) {
 		ControlarUsuarioArreglo control = new ControlarUsuarioArreglo();
-		String csvFileInsert = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_insert_10000.csv";
-		String csvBusqueda = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_busqueda_10000.csv";
-		String csv5 = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_50000.csv";
-		String csv1 = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_100000.csv";
-		String csv3 = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/Practico Especial/datasets/dataset_300000.csv";
+		String csvFileInsert = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/datasets/dataset_insert_10000.csv";
+		String csvBusqueda = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/datasets/dataset_busqueda_10000.csv";
+		String csv5 = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/datasets/dataset_500000.csv";
+		String csv1 = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/datasets/dataset_1000000.csv";
+		String csv3 = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/datasets/dataset_3000000.csv";
 
-		int c = 50000;
-		control.precarga(csv5);
-		control.alta(csvFileInsert, c);
-		control.busqueda(csvBusqueda, c);
+//		int c = 500000;
+//		control.precarga(csv5);
+//		control.alta(csvFileInsert, c);
+//		control.busqueda(csvBusqueda, c);
 		
-//		int u = 100000;
+//		int u = 1000000;
 //		control.precarga(csv1);
 //		control.alta(csvFileInsert, u);
 //		control.busqueda(csvBusqueda, u);
 
-//		int t = 300000;
-//		control.precarga(csv3);
-//		control.alta(csvFileInsert, t);
-//		control.busqueda(csvBusqueda, t);
+		int t = 3000000;
+		control.precarga(csv3);
+		control.alta(csvFileInsert, t);
+		control.busqueda(csvBusqueda, t);
 
 		
 		

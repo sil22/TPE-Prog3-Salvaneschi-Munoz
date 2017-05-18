@@ -15,6 +15,7 @@ public class ControlarUsuarioArreglo {
 	public ControlarUsuarioArreglo() {
 		int a = 9999; 
 		listaUsuarios = new ListaArreglo(a);
+		
 	}
 	
 	public void precarga(String path) {
@@ -181,20 +182,20 @@ public class ControlarUsuarioArreglo {
 		String csv1 = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/datasets/dataset_1000000.csv";
 		String csv3 = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/datasets/dataset_3000000.csv";
 
-//		int c = 500000;
-//		control.precarga(csv5);
-//		control.alta(csvFileInsert, c);
-//		control.busqueda(csvBusqueda, c);
+		int c = 500000;
+		control.precarga(csv5);
+		control.alta(csvFileInsert, c);
+		control.busqueda(csvBusqueda, c);
 		
 //		int u = 1000000;
 //		control.precarga(csv1);
 //		control.alta(csvFileInsert, u);
 //		control.busqueda(csvBusqueda, u);
 
-		int t = 3000000;
-		control.precarga(csv3);
-		control.alta(csvFileInsert, t);
-		control.busqueda(csvBusqueda, t);
+//		int t = 3000000;
+//		control.precarga(csv3);
+//		control.alta(csvFileInsert, t);
+//		control.busqueda(csvBusqueda, t);
 
 		
 		

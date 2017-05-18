@@ -37,8 +37,7 @@ public class Usuario {
 	}
 	
 	public boolean equals(Object o) {
-		Usuario d = (Usuario)o;
-		return this.getDni().equals(d.getDni());
+		return this.getDni().equals(((Usuario)o).getDni());
 	}
 
 	public String getDni() {

@@ -10,7 +10,7 @@ import java.io.IOException;
 import ClasesNecesarias.*;
 
 public class ControlarUsuarioArreglo {
-	private static Lista listaUsuarios;
+	private static ListaArreglo listaUsuarios;
 	
 	public ControlarUsuarioArreglo() {
 		int a = 9999; 
@@ -23,9 +23,15 @@ public class ControlarUsuarioArreglo {
         String line = "";
         String cvsSplitBy = ";";
        
+        
+        int j = 1;
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
         	while ((line = br.readLine()) != null) {
-            	
+            	j++;
+            	if(j%1000 == 0) {
+            		System.out.println(j);
+            	}
+        		
             	               
                 String[] items = line.split(cvsSplitBy); 
                 
@@ -36,9 +42,8 @@ public class ControlarUsuarioArreglo {
                 	user.agregarGusto(items[i]);   
                 }
                 
-                listaUsuarios.agregar(user); 
+                listaUsuarios.insertarOrdenado(user); 
         	} 
-          
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -71,7 +76,7 @@ public class ControlarUsuarioArreglo {
                 	user.agregarGusto(items[i]);   
                 }
                 
-                listaUsuarios.agregar(user);
+                listaUsuarios.insertarOrdenado(user);
                 
                 fin = System.nanoTime();
             	tiempoTotal = fin - inicio;
@@ -80,7 +85,9 @@ public class ControlarUsuarioArreglo {
             	listaUsuariosSalida.agregar(resultado);  //agregao a la lista que voy a leer para escribir el archivo csv
         	} 
         	tiempoTotalGeneralFin = System.nanoTime() - tiempoTotalGeneralInicio;
-            escribirResultadoLista(listaUsuariosSalida,tiempoTotalGeneralFin,"/Users/munoz/Documents/workspace/TPE_Prog3_Salvaneschi_Munoz/src/CsvSalidas/salidaAltaUsuariosListArreglo"+preCarga+".csv");
+           
+//        	listaUsuarios.imprimir();  // esta muestra todos los usuarios ordenados
+        	escribirResultadoLista(listaUsuariosSalida,tiempoTotalGeneralFin,"/Users/munoz/Documents/workspace/TPE_Prog3_Salvaneschi_Munoz/src/CsvSalidas/salidaAltaUsuariosListArreglo"+preCarga+".csv");
           
         } catch (IOException e) {
             e.printStackTrace();
@@ -105,7 +112,7 @@ public class ControlarUsuarioArreglo {
             	String[] resultado = new String[3];
                    	               
                 String[] items = line.split(cvsSplitBy);
-                inicio = System.currentTimeMillis();
+                inicio = System.nanoTime();
                 
                 resultado[0]=items[0];
                 
@@ -119,7 +126,7 @@ public class ControlarUsuarioArreglo {
                 	resultado[2]="No Encontrado";
                               
                                
-                fin = System.currentTimeMillis();
+                fin = System.nanoTime();
         		tiempoTotal = fin - inicio;
         		
         		resultado[1]=Long.toString(tiempoTotal);
@@ -182,15 +189,15 @@ public class ControlarUsuarioArreglo {
 		String csv1 = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/datasets/dataset_1000000.csv";
 		String csv3 = "/Users/munoz/Documents/TUDAI/2DO AÑO - 2017/1er cuatrimestre/Programacion 3/Practicos/datasets/dataset_3000000.csv";
 
-		int c = 500000;
-		control.precarga(csv5);
-		control.alta(csvFileInsert, c);
-		control.busqueda(csvBusqueda, c);
+//		int c = 500000;
+//		control.precarga(csv5);
+//		control.alta(csvFileInsert, c);
+//		control.busqueda(csvBusqueda, c);
 		
-//		int u = 1000000;
-//		control.precarga(csv1);
-//		control.alta(csvFileInsert, u);
-//		control.busqueda(csvBusqueda, u);
+		int u = 1000000;
+		control.precarga(csv1);
+		control.alta(csvFileInsert, u);
+		control.busqueda(csvBusqueda, u);
 
 //		int t = 3000000;
 //		control.precarga(csv3);

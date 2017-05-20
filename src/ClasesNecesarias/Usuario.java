@@ -1,7 +1,7 @@
 package ClasesNecesarias;
 
 
-public class Usuario {
+public class Usuario implements Comparable<Usuario> {
 	String dni;
 	Lista gustos;
 	
@@ -46,6 +46,13 @@ public class Usuario {
 
 	public Lista getGustos() {
 		return gustos;
+	}
+
+	@Override
+	public int compareTo(Usuario o) {
+		if (o == null) throw new NullPointerException("Usuario invalido");
+
+		return this.getDni().compareTo(o.getDni());
 	}
 	
 }

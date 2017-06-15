@@ -69,12 +69,12 @@ public class Grafo {
 		return aux.containsKey(usuario);
 	}
 	
-//	public ArrayList<String> gustoMasRpetido(String usuario){ 
-//	//dado un usuario, mostrarle las personas que tienen mas de un gusto en comun con el
-//		ArrayList<String> personasMismosGustos = new ArrayList<String>();
-//		
-//	
-//	}
+	public ArrayList<String> mismosGustos(String usuario){ 
+	//dado un usuario, mostrarle las personas que tienen mas de un gusto en comun con el
+		ArrayList<String> personasMismosGustos = new ArrayList<String>();
+		
+	
+	}
 	
 	public static void main(String[] args) {
 		

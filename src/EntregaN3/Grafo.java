@@ -102,7 +102,8 @@ public class Grafo {
 	}
 	
 	
-	public String GustoMasPopular(){
+	public String GustoMasPopular(){//devuelve el gusto mas popular
+		
 		int temporal=0;
 		String nombre="";
 		
@@ -124,7 +125,7 @@ public class Grafo {
 	
 	
 	
-	public boolean compartenDosGustos(ArrayList<String> g1, ArrayList<String> g2){
+	public boolean compartenDosGustos(ArrayList<String> g1, ArrayList<String> g2){//Responde si los arreglos pasados como parametros, si tienen considencia en 2 ocurrencias
 		int tiene = 0;
 		for (int i = 0; i < g1.size(); i++) {
 			for (int j = 0; j < g2.size(); j++) {
@@ -141,7 +142,7 @@ public class Grafo {
 		return false;
 	}
 	
-	public ArrayList<String> extraerGustos(String usuario ){
+	public ArrayList<String> extraerGustos(String usuario ){//Extrae los gustos del Usuario pasado como parametro
 		int pos=aux.get(usuario);
 		ArrayList<String> resultado=new ArrayList<String>();
 		for (int i = 0; i < vertices[pos].size(); i++) {
@@ -151,47 +152,40 @@ public class Grafo {
 		return resultado;
 	}
 	
-	public String PersonaConGustoMasLejano(String usuario){
+	public String PersonaConGustoMasLejano(String usuario){//Devuelve el usuario que tenga gustos mas lejanos al pasado como parametro
 		
-		if (this.existeUsuario(usuario)){
-			int pos=aux.get(usuario);
+		String resultado="";		
+		
+		if (this.existeUsuario(usuario)){			
 			
+			ArrayList<String> gustosUsuario=extraerGustos(usuario);
+		
 			
+			int ocurrencia=gustosUsuario.size();
 			
-		
-		
-		
-		ArrayList<String> gustosUsuario=extraerGustos(usuario);
-		
-		String resultado="pepe";
-		int cantActual=gustosUsuario.size();
-		
-		for (int i = 0; i < vertices.length; i++) {
-			
-			if(vertices[i].getTipoDato()==TipoDato.gusto){
+			for (int i = 0; i < vertices.length;i++) {
 				
-				String usuarioIndice=vertices[i].getPrimero().getDato();
+				if(vertices[i].getTipoDato()==TipoDato.gusto){					
+					int tiempo=tantasVecesElGusto(gustosUsuario , vertices[i] , ocurrencia);					
+					if(tiempo==ocurrencia){
+						resultado=vertices[i].getPrimero().getDato();						
+					}
+					
+					else if (tiempo < ocurrencia && tiempo != -1){
+						ocurrencia=tiempo;						
+						resultado=vertices[i].getPrimero().getDato();
+					}				
 				
-				
+				}
 			}
-				
-			int tiempo=tantasVecesElGusto(gustosUsuario , vertices[i] , cantActual);
 			
-			
-			
-			
-			}
-		}
+	}
+		return resultado;
 	
-	
-	
-	
-	
-	
-	return resultado;
 	}
 	
-	public int tantasVecesElGusto(ArrayList<String> arreglo1, ListaNodo arreglo2, int cantidad){
+	public int tantasVecesElGusto(ArrayList<String> arreglo1, ListaNodo arreglo2, int ocurrencia){//Dado los dos arreglos de gustos, ya sea el del pasado como paramtro
+		//o el del Usuario a comparar y la cantidad de ocurrencias, si es menor que el actual devuelve valor actualizado. Sino -1;
 		
 		int contador = 0;
 		
@@ -201,7 +195,7 @@ public class Grafo {
 				
 				if(arreglo1.get(i).equals(arreglo2.getElement(j))){					
 					contador++;
-					if (contador > cantidad) {
+					if (contador > ocurrencia) {
 						return -1;
 					}
 				}
